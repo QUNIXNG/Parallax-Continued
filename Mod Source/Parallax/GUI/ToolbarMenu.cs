@@ -1,4 +1,5 @@
-﻿using KSP.UI;
+using KSP.Localization;
+using KSP.UI;
 using KSP.UI.Screens;
 using Parallax.Scaled_System;
 using SoftMasking.Samples;
@@ -27,31 +28,31 @@ namespace Parallax
         private static GUIStyle headerLabel;
         private static ApplicationLauncherButton button;
 
-        static string maxTessellationTooltip = "The close-up terrain detail - Makes terrain 3D. Higher is better quality, max 64. Moderate GPU performance impact";
-        static string tessellationEdgeLengthTooltip = "The tessellation level of detail falloff with camera distance. Lower is higher quality. Moderate GPU performance impact. Values below 1 not recommended";
-        static string maxTessellationRangeTooltip = "The range within which the terrain tessellates. Low GPU performance impact. You can set this very high, but the performance impact will vary depending on your tessellation edge length setting";
-        static string advancedTextureBlendingTooltip = "Switches between simple texture blending and more realistic heightmap-based texture blending. Very low GPU performance impact";
-        static string ambientOcclusionTooltip = "Toggles texture baked ambient occlusion. Very low GPU performance impact";
+        static string maxTessellationTooltip = Localizer.Format("#PARALLAX_78");
+        static string tessellationEdgeLengthTooltip = Localizer.Format("#PARALLAX_79");
+        static string maxTessellationRangeTooltip = Localizer.Format("#PARALLAX_80");
+        static string advancedTextureBlendingTooltip = Localizer.Format("#PARALLAX_81");
+        static string ambientOcclusionTooltip = Localizer.Format("#PARALLAX_82");
 
-        static string densityMultiplierTooltip = "Multiplies the number of scatters generated. Setting this to 2 will double the number of objects you see, while 0.5 will halve them. High GPU performance impact";
-        static string rangeMultiplierTooltip = "Multiplies the scatter render distance. Setting this to 2 will double the render distance (which is 4x the number of objects rendered). High GPU performance impact";
-        static string fadeOutStartRangeTooltip = "The percentage of the scatters' render distances at which scatters will start to despawn. This helps prevent a 'hard edge' where scatters suddenly despawn. Low GPU performance impact";
-        static string collisionLevelTooltip = "Controls which objects are collideable.\u000A-1 = off.\u000A0 = absolutely everything, including foliage.\u000A1 = everything reasonable including small rocks.\u000A2 = most objects (default).\u000A3 = only large objects.\u000A4 = only huge objects.\u000AModerate CPU performance impact";
-        static string colliderLookaheadTimeTooltip = "Controls how many seconds into the future to predict colliders - only use this if you use a pathfinding rover mod, or need the distance to far away scatters when moving at speed. Moderate CPU performance impact";
-        static string showCollidersTooltip = "Toggle collider visibility. If you're unsure if you can hit an object or not, toggle this. Collideable objects are green, while non collideable objects are red";
+        static string densityMultiplierTooltip = Localizer.Format("#PARALLAX_83");
+        static string rangeMultiplierTooltip = Localizer.Format("#PARALLAX_84");
+        static string fadeOutStartRangeTooltip = Localizer.Format("#PARALLAX_85");
+        static string collisionLevelTooltip = Localizer.Format("#PARALLAX_86");
+        static string colliderLookaheadTimeTooltip = Localizer.Format("#PARALLAX_87");
+        static string showCollidersTooltip = Localizer.Format("#PARALLAX_88");
 
-        static string lightShadowsTooltip = "Toggle craft light shadows. Moderate GPU performance impact when lights are on depending on light shadows quality";
-        static string lightShadowsQualityTooltip = "Controls the craft light shadow resolution. Moderate GPU performance impact when lights are on";
+        static string lightShadowsTooltip = Localizer.Format("#PARALLAX_89");
+        static string lightShadowsQualityTooltip = Localizer.Format("#PARALLAX_90");
 
-        static string scaledSpaceShadowsTooltip = "Toggles raymarched planet shadows from orbit. Low GPU performance impact";
-        static string smoothScaledSpaceShadowsTooltip = "Toggles smooth planet shadows. No performance impact. Disable or increase the shadow step count if you see shadow flickering";
-        static string scaledRaymarchedShadowStepCountTooltip = "Controls how many raymarch steps to use for the orbital shadows. Higher is higher quality. Moderate GPU performance impact";
-        static string scaledRaymarchedShadowMaxStarsTooltip = "Controls how many stars can cast scaledspace shadows at once, prioritising the brightest star near each planet. Only affects systems with multiple stars. Moderate GPU performance impact per star, no impact if there are no additional stars bright enough to affect a planet.";
-        static string loadTexturesImmediatelyTooltip = "Toggles loading planet orbit textures immediately or spreads it out over a few frames. No performance impact";
+        static string scaledSpaceShadowsTooltip = Localizer.Format("#PARALLAX_91");
+        static string smoothScaledSpaceShadowsTooltip = Localizer.Format("#PARALLAX_92");
+        static string scaledRaymarchedShadowStepCountTooltip = Localizer.Format("#PARALLAX_93");
+        static string scaledRaymarchedShadowMaxStarsTooltip = Localizer.Format("#PARALLAX_94");
+        static string loadTexturesImmediatelyTooltip = Localizer.Format("#PARALLAX_95");
 
-        static string wireframeTerrainTooltip = "Renders the terrain as a wireframe. The current planet's terrain is rebuilt when this changes";
+        static string wireframeTerrainTooltip = Localizer.Format("#PARALLAX_96");
         static string suppressCriticalMessagesTooltip = "Stops critical error and warning popups from appearing. They are still written to the log";
-        static string enableDebugVisualizationsTooltip = "Enables Parallax's debug visualisations";
+        static string enableDebugVisualizationsTooltip = Localizer.Format("#PARALLAX_97");
 
         bool showGUI = false;
 
@@ -105,7 +106,7 @@ namespace Parallax
         {
             if (showGUI)
             {
-                window.Draw(GetInstanceID(), DrawWindow, "Parallax GUI");
+                window.Draw(GetInstanceID(), DrawWindow, Localizer.Format("#PARALLAX_2"));
 
                 if (!string.IsNullOrEmpty(tooltip))
                 {
@@ -143,64 +144,64 @@ namespace Parallax
             GUILayout.BeginVertical();
             ///////////////////////////
 
-            GUILayout.Label("Parallax Global Settings", titleLabel);
+            GUILayout.Label(Localizer.Format("#PARALLAX_100"), titleLabel);
 
             window.BeginScrollView();
 
-            GUILayout.Label("Terrain Shader Settings", headerLabel);
+            GUILayout.Label(Localizer.Format("#PARALLAX_101"), headerLabel);
             ParamCreator.ChangeMethod terrainCallback = UpdateTerrainMaterials;
             ParamCreator.ChangeMethod terrainKeywordCallback = UpdateTerrainKeywords;
 
-            ParamCreator.CreateParam("Max Tessellation",         ref ConfigLoader.parallaxGlobalSettings.terrainGlobalSettings.maxTessellation,             GUIHelperFunctions.FloatField, terrainCallback, maxTessellationTooltip);
-            ParamCreator.CreateParam("Tessellation Edge Length", ref ConfigLoader.parallaxGlobalSettings.terrainGlobalSettings.tessellationEdgeLength,      GUIHelperFunctions.FloatField, terrainCallback, tessellationEdgeLengthTooltip);
-            ParamCreator.CreateParam("Tessellation Range",       ref ConfigLoader.parallaxGlobalSettings.terrainGlobalSettings.maxTessellationRange,        GUIHelperFunctions.FloatField, terrainCallback, maxTessellationRangeTooltip);
-            ParamCreator.CreateParam("Use Advanced Blending",    ref ConfigLoader.parallaxGlobalSettings.terrainGlobalSettings.advancedTextureBlending,     GUIHelperFunctions.BoolField, terrainKeywordCallback, advancedTextureBlendingTooltip);
-            ParamCreator.CreateParam("Ambient Occlusion",        ref ConfigLoader.parallaxGlobalSettings.terrainGlobalSettings.ambientOcclusion,            GUIHelperFunctions.BoolField, terrainKeywordCallback, ambientOcclusionTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_102"),         ref ConfigLoader.parallaxGlobalSettings.terrainGlobalSettings.maxTessellation,             GUIHelperFunctions.FloatField, terrainCallback, maxTessellationTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_103"), ref ConfigLoader.parallaxGlobalSettings.terrainGlobalSettings.tessellationEdgeLength,      GUIHelperFunctions.FloatField, terrainCallback, tessellationEdgeLengthTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_104"),       ref ConfigLoader.parallaxGlobalSettings.terrainGlobalSettings.maxTessellationRange,        GUIHelperFunctions.FloatField, terrainCallback, maxTessellationRangeTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_105"),    ref ConfigLoader.parallaxGlobalSettings.terrainGlobalSettings.advancedTextureBlending,     GUIHelperFunctions.BoolField, terrainKeywordCallback, advancedTextureBlendingTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_106"),        ref ConfigLoader.parallaxGlobalSettings.terrainGlobalSettings.ambientOcclusion,            GUIHelperFunctions.BoolField, terrainKeywordCallback, ambientOcclusionTooltip);
             GUILayout.Space(15);
 
-            GUILayout.Label("Scatter System Settings", headerLabel);
+            GUILayout.Label(Localizer.Format("#PARALLAX_107"), headerLabel);
             ParamCreator.ChangeMethod scatterCallback = UpdateScatterSettings;
             ParamCreator.ChangeMethod colliderCallback = UpdateColliderSettings;
 
-            GUILayout.Label("Note: The game will pause for a few seconds when changing these settings");
-            GUILayout.Label("Important: You should restart the game after changing and saving these");
+            GUILayout.Label(Localizer.Format("#PARALLAX_108"));
+            GUILayout.Label(Localizer.Format("#PARALLAX_109"));
             GUILayout.Space(10);
-            ParamCreator.CreateParam("Density Multiplier",                  ref ConfigLoader.parallaxGlobalSettings.scatterGlobalSettings.densityMultiplier,        GUIHelperFunctions.FloatField, scatterCallback, densityMultiplierTooltip);
-            ParamCreator.CreateParam("Range Multiplier",                    ref ConfigLoader.parallaxGlobalSettings.scatterGlobalSettings.rangeMultiplier,          GUIHelperFunctions.FloatField, scatterCallback, rangeMultiplierTooltip);
-            ParamCreator.CreateParam("Fade Out Start Range",                ref ConfigLoader.parallaxGlobalSettings.scatterGlobalSettings.fadeOutStartRange,        GUIHelperFunctions.FloatField, scatterCallback, fadeOutStartRangeTooltip);
-            ParamCreator.CreateParam("Collision Level (Restart Required)",  ref ConfigLoader.parallaxGlobalSettings.scatterGlobalSettings.collisionLevel,           GUIHelperFunctions.IntField,   scatterCallback, collisionLevelTooltip);
-            ParamCreator.CreateParam("Collider Lookahead Time",             ref ConfigLoader.parallaxGlobalSettings.scatterGlobalSettings.colliderLookaheadTime,    GUIHelperFunctions.FloatField, colliderCallback, colliderLookaheadTimeTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_110"),                  ref ConfigLoader.parallaxGlobalSettings.scatterGlobalSettings.densityMultiplier,        GUIHelperFunctions.FloatField, scatterCallback, densityMultiplierTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_111"),                    ref ConfigLoader.parallaxGlobalSettings.scatterGlobalSettings.rangeMultiplier,          GUIHelperFunctions.FloatField, scatterCallback, rangeMultiplierTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_112"),                ref ConfigLoader.parallaxGlobalSettings.scatterGlobalSettings.fadeOutStartRange,        GUIHelperFunctions.FloatField, scatterCallback, fadeOutStartRangeTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_113"),  ref ConfigLoader.parallaxGlobalSettings.scatterGlobalSettings.collisionLevel,           GUIHelperFunctions.IntField,   scatterCallback, collisionLevelTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_114"),             ref ConfigLoader.parallaxGlobalSettings.scatterGlobalSettings.colliderLookaheadTime,    GUIHelperFunctions.FloatField, colliderCallback, colliderLookaheadTimeTooltip);
             GUILayout.Space(15);
 
-            GUILayout.Label("Lighting Settings", headerLabel);
+            GUILayout.Label(Localizer.Format("#PARALLAX_115"), headerLabel);
             ParamCreator.ChangeMethod lightingCallback = UpdateLightingSettings;
 
-            ParamCreator.CreateParam("Light Shadows",         ref ConfigLoader.parallaxGlobalSettings.lightingGlobalSettings.lightShadows,          GUIHelperFunctions.BoolField,   lightingCallback, lightShadowsTooltip);
-            ParamCreator.CreateParam("Light Shadows Quality", ref ConfigLoader.parallaxGlobalSettings.lightingGlobalSettings.lightShadowsQuality,   EnumField,                      lightingCallback, lightShadowsQualityTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_116"),         ref ConfigLoader.parallaxGlobalSettings.lightingGlobalSettings.lightShadows,          GUIHelperFunctions.BoolField,   lightingCallback, lightShadowsTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_117"), ref ConfigLoader.parallaxGlobalSettings.lightingGlobalSettings.lightShadowsQuality,   EnumField,                      lightingCallback, lightShadowsQualityTooltip);
 
-            GUILayout.Label("Visualisations", headerLabel);
-            ParamCreator.CreateParam("Highlight Collideable Objects", ref showCollideables, GUIHelperFunctions.BoolField, ShowCollideableScatters, showCollidersTooltip);
+            GUILayout.Label(Localizer.Format("#PARALLAX_118"), headerLabel);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_119"), ref showCollideables, GUIHelperFunctions.BoolField, ShowCollideableScatters, showCollidersTooltip);
             GUILayout.Space(15);
 
-            GUILayout.Label("Scaled System Settings", headerLabel);
-            GUILayout.Label("Tip: You can press Alt + 7 in the tracking station to display the shadow map");
+            GUILayout.Label(Localizer.Format("#PARALLAX_120"), headerLabel);
+            GUILayout.Label(Localizer.Format("#PARALLAX_121"));
             ParamCreator.ChangeMethod scaledShadowCallback = UpdateScaledShadowSettings;
             ParamCreator.ChangeMethod scaledTextureCallback = UpdateScaledTextureSettings;
             ParamCreator.ChangeMethod scaledShadowMaterialCallback = UpdateScaledShadowMaterialSettings;
 
-            ParamCreator.CreateParam("Scaled Planet Self Shadows",              ref ConfigLoader.parallaxGlobalSettings.scaledGlobalSettings.scaledSpaceShadows, GUIHelperFunctions.BoolField, scaledShadowCallback, scaledSpaceShadowsTooltip);
-            ParamCreator.CreateParam("Smooth Scaled Planet Shadows",            ref ConfigLoader.parallaxGlobalSettings.scaledGlobalSettings.smoothScaledSpaceShadows, GUIHelperFunctions.BoolField, scaledShadowMaterialCallback, smoothScaledSpaceShadowsTooltip);
-            ParamCreator.CreateParam("Raymarched Scaled Shadows Step Count",    ref ConfigLoader.parallaxGlobalSettings.scaledGlobalSettings.scaledRaymarchedShadowStepCount, GUIHelperFunctions.IntField, scaledShadowMaterialCallback, scaledRaymarchedShadowStepCountTooltip);
-            ParamCreator.CreateParam("Raymarched Scaled Shadows Max Stars",     ref ConfigLoader.parallaxGlobalSettings.scaledGlobalSettings.scaledRaymarchedShadowMaxStars, GUIHelperFunctions.IntField, scaledShadowMaterialCallback, scaledRaymarchedShadowMaxStarsTooltip);
-            ParamCreator.CreateParam("Load Scaled Textures Immediately",        ref ConfigLoader.parallaxGlobalSettings.scaledGlobalSettings.loadTexturesImmediately, GUIHelperFunctions.BoolField, scaledTextureCallback, loadTexturesImmediatelyTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_122"),              ref ConfigLoader.parallaxGlobalSettings.scaledGlobalSettings.scaledSpaceShadows, GUIHelperFunctions.BoolField, scaledShadowCallback, scaledSpaceShadowsTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_123"),            ref ConfigLoader.parallaxGlobalSettings.scaledGlobalSettings.smoothScaledSpaceShadows, GUIHelperFunctions.BoolField, scaledShadowMaterialCallback, smoothScaledSpaceShadowsTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_124"),    ref ConfigLoader.parallaxGlobalSettings.scaledGlobalSettings.scaledRaymarchedShadowStepCount, GUIHelperFunctions.IntField, scaledShadowMaterialCallback, scaledRaymarchedShadowStepCountTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_125"),     ref ConfigLoader.parallaxGlobalSettings.scaledGlobalSettings.scaledRaymarchedShadowMaxStars, GUIHelperFunctions.IntField, scaledShadowMaterialCallback, scaledRaymarchedShadowMaxStarsTooltip);
+            ParamCreator.CreateParam(Localizer.Format("#PARALLAX_126"),        ref ConfigLoader.parallaxGlobalSettings.scaledGlobalSettings.loadTexturesImmediately, GUIHelperFunctions.BoolField, scaledTextureCallback, loadTexturesImmediatelyTooltip);
             GUILayout.Space(15);
 
-            if (SectionButton("Debug", ref showDebugSettings))
+            if (SectionButton(Localizer.Format("#PARALLAX_127"), ref showDebugSettings))
             {
                 GUISection.Begin();
-                ParamCreator.CreateParam("Wireframe Terrain",               ref ConfigLoader.parallaxGlobalSettings.debugGlobalSettings.wireframeTerrain,           GUIHelperFunctions.BoolField, UpdateWireframeTerrain, wireframeTerrainTooltip);
-                ParamCreator.CreateParam("Suppress Critical Messages",      ref ConfigLoader.parallaxGlobalSettings.debugGlobalSettings.suppressCriticalMessages,   GUIHelperFunctions.BoolField, null, suppressCriticalMessagesTooltip);
-                ParamCreator.CreateParam("Enable Debug Visualizations",     ref ConfigLoader.parallaxGlobalSettings.debugGlobalSettings.enableDebugVisualizations,  GUIHelperFunctions.BoolField, null, enableDebugVisualizationsTooltip);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_128"),               ref ConfigLoader.parallaxGlobalSettings.debugGlobalSettings.wireframeTerrain,           GUIHelperFunctions.BoolField, UpdateWireframeTerrain, wireframeTerrainTooltip);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_129"),      ref ConfigLoader.parallaxGlobalSettings.debugGlobalSettings.suppressCriticalMessages,   GUIHelperFunctions.BoolField, null, suppressCriticalMessagesTooltip);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_130"),     ref ConfigLoader.parallaxGlobalSettings.debugGlobalSettings.enableDebugVisualizations,  GUIHelperFunctions.BoolField, null, enableDebugVisualizationsTooltip);
                 GUISection.End();
             }
 
@@ -214,7 +215,7 @@ namespace Parallax
             ConfigLoader.parallaxGlobalSettings.scaledGlobalSettings.scaledRaymarchedShadowMaxStars = Mathf.Clamp(ConfigLoader.parallaxGlobalSettings.scaledGlobalSettings.scaledRaymarchedShadowMaxStars, 1, RaymarchedShadowsRenderer.MaxShadowStars);
 
             // Save button
-            if (GUILayout.Button("Save Changes", activeButton))
+            if (GUILayout.Button(Localizer.Format("#PARALLAX_131"), activeButton))
             {
                 ConfigLoader.parallaxGlobalSettings.SaveSettings();
             }

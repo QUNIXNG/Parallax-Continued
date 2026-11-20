@@ -1,6 +1,11 @@
 # Parallax Continued Changelog
 For new viewers, start at the bottom and work your way up!
 
+## 简体中文本地化（Fork）
+
+ - 新增 `Localization/zh-cn.cfg`，主设置窗口、散布/地形编辑器与导出器的可见文字改为经 `Localizer.Format` 读取
+ - 着色器关键字、配置节点名与资源路径保持英文，行为与上游一致
+
 ## Public Release 1.0.0
 
 ## Parallax -> Early Access Release 1.0

@@ -1,5 +1,6 @@
-﻿using Parallax.Harmony_Patches;
+﻿using KSP.Localization;
 using Steamworks;
+using Parallax.Harmony_Patches;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -248,7 +249,7 @@ namespace Parallax
             // Show GUI if toggle enabled
             if (showGUI)
             {
-                window.Draw(GetInstanceID(), DrawWindow, "Parallax GUI");
+                window.Draw(GetInstanceID(), DrawWindow, Localizer.Format("#PARALLAX_2"));
                 GUIHelperFunctions.DrawDropdownPopup(GetInstanceID() + 1);
             }
         }
@@ -365,7 +366,7 @@ namespace Parallax
         {
             GUILayout.Space(15);
             GUILayout.Label("Exporter Options", HighLogic.Skin.label);
-            if (GUILayout.Button("Exporter", GetButtonColor(showScatterExporter)))
+            if (GUILayout.Button(Localizer.Format("#PARALLAX_3"), GetButtonColor(showScatterExporter)))
             {
                 showScatterExporter = !showScatterExporter;
             }
@@ -379,12 +380,12 @@ namespace Parallax
                 else
                 {
                     GUILayout.Label("Configs will be exported to GameData/ParallaxContinued/Exports/Configs");
-                    GUILayout.Label("To apply them, you must copy the contents of the .cfg to the active .cfg");
+                    GUILayout.Label(Localizer.Format("#PARALLAX_4"));
                 }
-                ParamCreator.CreateParam("Overwrite Existing Configs", ref overwriteOnExport, GUIHelperFunctions.BoolField);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_5"), ref overwriteOnExport, GUIHelperFunctions.BoolField);
                 if (overwriteOnExport && GUILayout.Button("Save Current Scatter", HighLogic.Skin.button))
                 {
-                    ConfigNode currentNode = scatter.isShared ? new ConfigNode("SharedScatter") : new ConfigNode("Scatter");
+                    ConfigNode currentNode = scatter.isShared ? new ConfigNode(Localizer.Format("#PARALLAX_6")) : new ConfigNode(Localizer.Format("#PARALLAX_7"));
                     ConfigLoader.GetScatterConfigNode(FlightGlobals.currentMainBody.name, scatter.scatterName, scatter.isShared).CopyTo(currentNode);
                     currentNode.name = "Scatter-Backup";
                     // Removes body name from the start of the scatter's name
@@ -412,7 +413,7 @@ namespace Parallax
                         ConfigLoader.DeterminePrecedingAndTrailingNodes(rootPlanetNodeConfig, originalScatterNode, precedingNodes, trailingNodes);
 
                         // Remove original node, add preceding nodes, add new node, add trailing nodes
-                        ConfigLoader.OverwriteConfigNode(rootPlanetNodeConfig, newScatterNode, precedingNodes, trailingNodes, "Scatter", "SharedScatter");
+                        ConfigLoader.OverwriteConfigNode(rootPlanetNodeConfig, newScatterNode, precedingNodes, trailingNodes, Localizer.Format("#PARALLAX_7"), Localizer.Format("#PARALLAX_6"));
 
                         Debug.Log("URL: " + rootScatterNode.url);
 

@@ -1,4 +1,5 @@
-﻿using Kopernicus.Configuration;
+using KSP.Localization;
+using Kopernicus.Configuration;
 using Parallax.Scaled_System;
 using Parallax.Tools;
 using System;
@@ -51,7 +52,7 @@ namespace Parallax
             string planetName = PlanetariumCamera.fetch.target.gameObject.name;
             CelestialBody body = FlightGlobals.GetBodyByName(planetName);
 
-            if (GUILayout.Button("Texture Exporter", GetButtonColor(showExporter)))
+            if (GUILayout.Button(Localizer.Format("#PARALLAX_21"), GetButtonColor(showExporter)))
             {
                 showExporter = !showExporter;
             }
@@ -61,22 +62,22 @@ namespace Parallax
                 // Options
                 GUILayout.Label("Planet Texture Exporter Options:", HighLogic.Skin.label);
 
-                ParamCreator.CreateParam("Resolution", ref exportOptions.horizontalResolution, GUIHelperFunctions.IntField, (ParamCreator.ChangeMethod)null);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_22"), ref exportOptions.horizontalResolution, GUIHelperFunctions.IntField, (ParamCreator.ChangeMethod)null);
                 GUILayout.Space(10);
-                ParamCreator.CreateParam("Export Height", ref exportOptions.exportHeight, GUIHelperFunctions.BoolField, (ParamCreator.ChangeMethod)null);
-                ParamCreator.CreateParam("Export Color", ref exportOptions.exportColor, GUIHelperFunctions.BoolField, (ParamCreator.ChangeMethod)null);
-                ParamCreator.CreateParam("Export Normal", ref exportOptions.exportNormal, GUIHelperFunctions.BoolField, (ParamCreator.ChangeMethod)null);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_23"), ref exportOptions.exportHeight, GUIHelperFunctions.BoolField, (ParamCreator.ChangeMethod)null);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_24"), ref exportOptions.exportColor, GUIHelperFunctions.BoolField, (ParamCreator.ChangeMethod)null);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_25"), ref exportOptions.exportNormal, GUIHelperFunctions.BoolField, (ParamCreator.ChangeMethod)null);
                 GUILayout.Space(10);
-                ParamCreator.CreateParam("Multithreaded Export", ref exportOptions.multithread, GUIHelperFunctions.BoolField, (ParamCreator.ChangeMethod)null);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_26"), ref exportOptions.multithread, GUIHelperFunctions.BoolField, (ParamCreator.ChangeMethod)null);
                 GUILayout.Space(10);
                 if (currentMinMaxBody != planetName)
                 {
-                    GUILayout.Label("To see min/max altitudes to use in configs, export the planet textures first");
+                    GUILayout.Label(Localizer.Format("#PARALLAX_27"));
                 }
                 else
                 {
-                    GUILayout.Label("Min Altitude: " + currentMinAltitude.ToString("F2"));
-                    GUILayout.Label("Max Altitude: " + currentMaxAltitude.ToString("F2"));
+                    GUILayout.Label(Localizer.Format("#PARALLAX_28") + currentMinAltitude.ToString("F2"));
+                    GUILayout.Label(Localizer.Format("#PARALLAX_29") + currentMaxAltitude.ToString("F2"));
                 }
                 
                 GUILayout.Space(10);

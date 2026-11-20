@@ -1,4 +1,5 @@
-﻿using System;
+using KSP.Localization;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,11 +79,11 @@ namespace Parallax
 
             GUILayout.Space(15);
             GUILayout.Label("Planet Subdivision Properties: ", HighLogic.Skin.label);
-            GUILayout.Label("Subdivision settings are not saved, you must update the config values manually");
+            GUILayout.Label(Localizer.Format("#PARALLAX_73"));
             PQSMod_Parallax pqsMod = FlightGlobals.currentMainBody.pqsController.GetComponentsInChildren<PQSMod>().Where(x => x.GetType() == typeof(PQSMod_Parallax)).FirstOrDefault() as PQSMod_Parallax;
             bool subdivisionUpdated = false;
-            subdivisionUpdated |= ParamCreator.CreateParam("Subdivision Radius", ref pqsMod.subdivisionRadius, GUIHelperFunctions.FloatField);
-            subdivisionUpdated |= ParamCreator.CreateParam("Subdivision Level", ref pqsMod.subdivisionLevel, GUIHelperFunctions.IntField);
+            subdivisionUpdated |= ParamCreator.CreateParam(Localizer.Format("#PARALLAX_74"), ref pqsMod.subdivisionRadius, GUIHelperFunctions.FloatField);
+            subdivisionUpdated |= ParamCreator.CreateParam(Localizer.Format("#PARALLAX_75"), ref pqsMod.subdivisionLevel, GUIHelperFunctions.IntField);
 
             if (subdivisionUpdated)
             {
@@ -105,9 +106,9 @@ namespace Parallax
                 else
                 {
                     GUILayout.Label("Configs will be exported to GameData/ParallaxContinued/Exports/Configs");
-                    GUILayout.Label("To apply them, you must copy the contents of the .cfg to the active .cfg");
+                    GUILayout.Label(Localizer.Format("#PARALLAX_4"));
                 }
-                ParamCreator.CreateParam("Overwrite Existing Configs", ref overwriteOnExport, GUIHelperFunctions.BoolField);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_5"), ref overwriteOnExport, GUIHelperFunctions.BoolField);
                 if (GUILayout.Button("Save Current Terrain", HighLogic.Skin.button))
                 {
                     if (overwriteOnExport)
@@ -137,7 +138,7 @@ namespace Parallax
                                 ConfigLoader.DeterminePrecedingAndTrailingNodes(rootPlanetNodeConfig, originalTerrainNode, precedingNodes, trailingNodes);
 
                                 // Remove original node, add preceding nodes, add new node, add trailing nodes
-                                ConfigLoader.OverwriteConfigNode(rootPlanetNodeConfig, newTerrainNode, precedingNodes, trailingNodes, "Body");
+                                ConfigLoader.OverwriteConfigNode(rootPlanetNodeConfig, newTerrainNode, precedingNodes, trailingNodes, Localizer.Format("#PARALLAX_76"));
 
                                 string path = "GameData/" + rootPlanetNode.url.Replace("/ParallaxTerrain", string.Empty) + ".cfg";
                                 ConfigLoader.SaveConfigNode(rootPlanetNodeConfig, path);
@@ -146,7 +147,7 @@ namespace Parallax
                     }
                     else
                     {
-                        ScreenMessages.PostScreenMessage("Non-overwriting terrain saving not implemented yet");
+                        ScreenMessages.PostScreenMessage(Localizer.Format("#PARALLAX_77"));
                     }
                 }
                 GUISection.End();

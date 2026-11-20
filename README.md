@@ -1,6 +1,45 @@
 # Parallax Continued
 Support development at [Linx's Patreon](https://www.patreon.com/linx_)
 
+## 简体中文本地化（本 Fork 新增）
+
+本仓库是 [Gameslinx/Parallax-Continued](https://github.com/Gameslinx/Parallax-Continued) 的 Fork，
+在原版基础上补充了 **简体中文界面**，未改动地形、着色器、散布物等任何渲染逻辑，
+配置结构（`Config/`）与默认参数保持与上游一致。
+
+### 汉化范围
+
+* 主设置窗口：地形着色器、散布系统、光照、缩放空间、可视化等全部分组与参数名
+* 参数提示（tooltip）：细分质量、散布密度/距离倍率、碰撞级别、阴影步进等说明文字
+* 散布物编辑器（Scatter）、地形编辑器（Terrain）、贴图导出器（Exporter）的按钮与标签
+
+### 有意保留英文的部分
+
+* **着色器关键字与属性名**（`AMBIENT_OCCLUSION`、`ADVANCED_BLENDING`、`_MaxTessellation`、`_Color` 等）：
+  这些字符串会直接传给 `EnableKeyword` / `SetFloat` / `SetColor`，翻译后着色器将匹配不到
+* **配置节点与文件名**（`Scatter-Backup`、`-EXPORTED`、`-Exported.cfg`、`ParallaxGUIScroll` 等）：
+  参与导出与存档读写
+* **贴图与预制体路径**（`ParallaxContinued/Textures/*`）
+
+### 文件说明
+
+```
+Mod Source/GameData/ParallaxContinued/Localization/en-us.cfg   英文原文
+Mod Source/GameData/ParallaxContinued/Localization/zh-cn.cfg   简体中文
+```
+
+游戏语言设为简体中文时自动生效。
+
+### 构建说明
+
+与上游一致：.NET SDK + `KSPBuildTools` + `Krafs.Publicizer`（见 `Parallax.csproj`）。
+新增的 `using KSP.Localization;` 与 `Localizer.Format("#PARALLAX_n")` 只依赖 KSP 自带的 `Assembly-CSharp`。
+
+### 同步上游
+
+改动仅限 `Mod Source/Parallax/GUI/` 下 6 个文件，上游更新后 `git merge upstream/master` 即可，
+冲突通常只出现在这些 GUI 文件。
+
 ## Installation Instructions - Windows
 
 Make sure you first **uninstall the old Parallax version** if you have it installed.

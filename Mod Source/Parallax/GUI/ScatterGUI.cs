@@ -1,4 +1,5 @@
-﻿using System;
+using KSP.Localization;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Parallax
 
             // Show current scatter
             Scatter scatter = GetScatter();
-            GUILayout.Label("Currently displaying scatter: " + scatter.scatterName, labelSkin);
+            GUILayout.Label(Localizer.Format("#PARALLAX_30") + scatter.scatterName, labelSkin);
 
             // Align correctly
             labelSkin.alignment = TextAnchor.MiddleLeft;
@@ -63,7 +64,7 @@ namespace Parallax
         static void ProcessDistributionParams(Scatter scatter)
         {
             if (scatter.isShared) { return; }
-            if (GUILayout.Button("Distribution Params", GetButtonColor(showDistribution)))
+            if (GUILayout.Button(Localizer.Format("#PARALLAX_31"), GetButtonColor(showDistribution)))
             {
                 showDistribution = !showDistribution;
             }
@@ -76,43 +77,43 @@ namespace Parallax
                 GUILayout.Label("Distribution Params: ", HighLogic.Skin.label);
 
                 // General params
-                ParamCreator.CreateParam("Seed", ref scatter.distributionParams.seed, GUIHelperFunctions.FloatField, callback);
-                ParamCreator.CreateParam("Spawn Chance", ref scatter.distributionParams.spawnChance, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_32"), ref scatter.distributionParams.seed, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_33"), ref scatter.distributionParams.spawnChance, GUIHelperFunctions.FloatField, callback);
                 // These edit the config values, which the global settings then scale
                 ParamCreator.ChangeMethod globalSettingsCallback = () =>
                 {
                     ConfigLoader.ApplyGlobalScatterSettings(scatter);
                     callback();
                 };
-                ParamCreator.CreateParam("Range", ref scatter.distributionParams.originalRange, GUIHelperFunctions.FloatField, globalSettingsCallback);
-                ParamCreator.CreateParam("Population Mult", ref scatter.distributionParams.originalPopulationMultiplier, GUIHelperFunctions.IntField, globalSettingsCallback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_34"), ref scatter.distributionParams.originalRange, GUIHelperFunctions.FloatField, globalSettingsCallback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_35"), ref scatter.distributionParams.originalPopulationMultiplier, GUIHelperFunctions.IntField, globalSettingsCallback);
 
                 // Scale params
-                ParamCreator.CreateParam("Min Scale", ref scatter.distributionParams.minScale, GUIHelperFunctions.Vector3Field, callback);
-                ParamCreator.CreateParam("Max Scale", ref scatter.distributionParams.maxScale, GUIHelperFunctions.Vector3Field, callback);
-                ParamCreator.CreateParam("Scale Randomness", ref scatter.distributionParams.scaleRandomness, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_36"), ref scatter.distributionParams.minScale, GUIHelperFunctions.Vector3Field, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_37"), ref scatter.distributionParams.maxScale, GUIHelperFunctions.Vector3Field, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_38"), ref scatter.distributionParams.scaleRandomness, GUIHelperFunctions.FloatField, callback);
 
-                ParamCreator.CreateParam("Noise Cutoff", ref scatter.distributionParams.noiseCutoff, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_39"), ref scatter.distributionParams.noiseCutoff, GUIHelperFunctions.FloatField, callback);
 
                 // Steep params
-                ParamCreator.CreateParam("Steep Power", ref scatter.distributionParams.steepPower, GUIHelperFunctions.FloatField, callback);
-                ParamCreator.CreateParam("Steep Contrast", ref scatter.distributionParams.steepContrast, GUIHelperFunctions.FloatField, callback);
-                ParamCreator.CreateParam("Steep Midpoint", ref scatter.distributionParams.steepMidpoint, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_40"), ref scatter.distributionParams.steepPower, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_41"), ref scatter.distributionParams.steepContrast, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_42"), ref scatter.distributionParams.steepMidpoint, GUIHelperFunctions.FloatField, callback);
 
-                ParamCreator.CreateParam("Max Normal Deviance", ref scatter.distributionParams.maxNormalDeviance, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_43"), ref scatter.distributionParams.maxNormalDeviance, GUIHelperFunctions.FloatField, callback);
 
                 // Altitude params
-                ParamCreator.CreateParam("Min Altitude", ref scatter.distributionParams.minAltitude, GUIHelperFunctions.FloatField, callback);
-                ParamCreator.CreateParam("Max Altitude", ref scatter.distributionParams.maxAltitude, GUIHelperFunctions.FloatField, callback);
-                ParamCreator.CreateParam("Altitude Fade Range", ref scatter.distributionParams.altitudeFadeRange, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_44"), ref scatter.distributionParams.minAltitude, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_45"), ref scatter.distributionParams.maxAltitude, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_46"), ref scatter.distributionParams.altitudeFadeRange, GUIHelperFunctions.FloatField, callback);
 
                 // Mesh params
-                ParamCreator.CreateParam("Align To Terrain Normal", ref scatter.distributionParams.alignToTerrainNormal, GUIHelperFunctions.IntField, callback);
-                ParamCreator.CreateParam("Use Terrain Colour", ref scatter.distributionParams.coloredByTerrain, GUIHelperFunctions.BoolField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_47"), ref scatter.distributionParams.alignToTerrainNormal, GUIHelperFunctions.IntField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_48"), ref scatter.distributionParams.coloredByTerrain, GUIHelperFunctions.BoolField, callback);
 
                 GUILayout.Label("LOD Params: ", HighLogic.Skin.label);
-                ParamCreator.CreateParam("LOD 1 Range", ref scatter.distributionParams.lod1.range, GUIHelperFunctions.FloatField, callback);
-                ParamCreator.CreateParam("LOD 2 Range", ref scatter.distributionParams.lod2.range, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_49"), ref scatter.distributionParams.lod1.range, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_50"), ref scatter.distributionParams.lod2.range, GUIHelperFunctions.FloatField, callback);
                 GUISection.End();
             }
         }
@@ -125,7 +126,7 @@ namespace Parallax
                 return;
             }
 
-            if (GUILayout.Button("Biome Blacklist", GetButtonColor(showBiomeBlacklist)))
+            if (GUILayout.Button(Localizer.Format("#PARALLAX_51"), GetButtonColor(showBiomeBlacklist)))
             {
                 showBiomeBlacklist = !showBiomeBlacklist;
             }
@@ -143,7 +144,7 @@ namespace Parallax
             for (int i = 0; i < blacklistedBiomes.Count; i++)
             {
                 GUILayout.BeginHorizontal();
-                GUILayout.Label("Blacklisted Biome " + (i + 1));
+                GUILayout.Label(Localizer.Format("#PARALLAX_52") + (i + 1));
 
                 List<string> options = GetSelectableBiomes(attributes, blacklistedBiomes, blacklistedBiomes[i]);
                 string biome = GUIHelperFunctions.DropdownField(blacklistedBiomes[i], options, scatter.scatterName + "-" + i, out bool biomeChanged);
@@ -194,7 +195,7 @@ namespace Parallax
         }
         static void ProcessBaseMaterialParams(Scatter scatter)
         {
-            if (GUILayout.Button("Material Params", GetButtonColor(showMaterial)))
+            if (GUILayout.Button(Localizer.Format("#PARALLAX_53"), GetButtonColor(showMaterial)))
             {
                 showMaterial = !showMaterial;
             }
@@ -203,7 +204,7 @@ namespace Parallax
                 GUISection.Begin();
                 ScatterRenderer renderer = ScatterManager.Instance.fastScatterRenderers[scatter.scatterName];
 
-                if (GUILayout.Button("LOD 0", GetButtonColor(showLOD0)))
+                if (GUILayout.Button(Localizer.Format("#PARALLAX_54"), GetButtonColor(showLOD0)))
                 {
                     showLOD0 = !showLOD0;
                 }
@@ -220,7 +221,7 @@ namespace Parallax
                     GUISection.End();
                 }
 
-                if (GUILayout.Button("LOD 1", GetButtonColor(showLOD1)))
+                if (GUILayout.Button(Localizer.Format("#PARALLAX_55"), GetButtonColor(showLOD1)))
                 {
                     showLOD1 = !showLOD1;
                 }
@@ -237,7 +238,7 @@ namespace Parallax
                     GUISection.End();
                 }
 
-                if (GUILayout.Button("LOD 2", GetButtonColor(showLOD2)))
+                if (GUILayout.Button(Localizer.Format("#PARALLAX_56"), GetButtonColor(showLOD2)))
                 {
                     showLOD2 = !showLOD2;
                 }
@@ -299,7 +300,7 @@ namespace Parallax
         static void ProcessDistributionNoiseParams(Scatter scatter)
         {
             if (scatter.isShared) { return; }
-            if (GUILayout.Button("Noise Params", GetButtonColor(showDistributionNoise)))
+            if (GUILayout.Button(Localizer.Format("#PARALLAX_57"), GetButtonColor(showDistributionNoise)))
             {
                 showDistributionNoise = !showDistributionNoise;
             }
@@ -311,13 +312,13 @@ namespace Parallax
 
                 GUILayout.Label("Distribution Params: ", HighLogic.Skin.label);
 
-                ParamCreator.CreateParam("Noise Type", ref scatter.noiseParams.noiseType, GUIHelperFunctions.EnumField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_58"), ref scatter.noiseParams.noiseType, GUIHelperFunctions.EnumField, callback);
 
-                ParamCreator.CreateParam("Seed", ref scatter.noiseParams.seed, GUIHelperFunctions.IntField, callback);
-                ParamCreator.CreateParam("Frequency", ref scatter.noiseParams.frequency, GUIHelperFunctions.FloatField, callback);
-                ParamCreator.CreateParam("Lacunarity", ref scatter.noiseParams.lacunarity, GUIHelperFunctions.FloatField, callback);
-                ParamCreator.CreateParam("Octaves", ref scatter.noiseParams.octaves, GUIHelperFunctions.IntField, callback);
-                ParamCreator.CreateParam("Inverted", ref scatter.noiseParams.inverted, GUIHelperFunctions.BoolField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_32"), ref scatter.noiseParams.seed, GUIHelperFunctions.IntField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_59"), ref scatter.noiseParams.frequency, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_60"), ref scatter.noiseParams.lacunarity, GUIHelperFunctions.FloatField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_61"), ref scatter.noiseParams.octaves, GUIHelperFunctions.IntField, callback);
+                ParamCreator.CreateParam(Localizer.Format("#PARALLAX_62"), ref scatter.noiseParams.inverted, GUIHelperFunctions.BoolField, callback);
                 GUISection.End();
             }
         }
@@ -354,7 +355,7 @@ namespace Parallax
 
             // Process keywords
             // This requires reading configs which can be slow, since we don't store keywords anywhere except ones that are already enabled
-            if (GUILayout.Button("Show Keywords", GetButtonColor(keywordBool)))
+            if (GUILayout.Button(Localizer.Format("#PARALLAX_63"), GetButtonColor(keywordBool)))
             {
                 keywordBool = !keywordBool;
             }
@@ -366,7 +367,7 @@ namespace Parallax
                 {
                     wrappedLabel = new GUIStyle(UnityEngine.GUI.skin.label) { wordWrap = true };
                 }
-                GUILayout.Label("Warning: The keywords menu has a significant performance impact!", wrappedLabel);
+                GUILayout.Label(Localizer.Format("#PARALLAX_64"), wrappedLabel);
                 // Get shader name
                 string shaderName = materialParams.shader;
 
@@ -479,7 +480,7 @@ namespace Parallax
         }
         static void ProcessDebug(Scatter scatter)
         {
-            if (GUILayout.Button("Debug Settings", GetButtonColor(showDebug)))
+            if (GUILayout.Button(Localizer.Format("#PARALLAX_66"), GetButtonColor(showDebug)))
             {
                 showDebug = !showDebug;
             }
@@ -487,11 +488,11 @@ namespace Parallax
             {
                 GUISection.Begin();
                 GUILayout.Label("Debug Settings", HighLogic.Skin.label);
-                if (ParamCreator.CreateParam("Show Face Orientation", ref debugShowFaceOrientation, GUIHelperFunctions.BoolField))
+                if (ParamCreator.CreateParam(Localizer.Format("#PARALLAX_67"), ref debugShowFaceOrientation, GUIHelperFunctions.BoolField))
                 {
                     ShowFaceOrientation(debugShowFaceOrientation, scatter);
                 }
-                if (ParamCreator.CreateParam("Show Collideable Scatters", ref debugShowCollideables, GUIHelperFunctions.BoolField))
+                if (ParamCreator.CreateParam(Localizer.Format("#PARALLAX_68"), ref debugShowCollideables, GUIHelperFunctions.BoolField))
                 {
                     ShowCollideableScatters(debugShowCollideables);
                 }
